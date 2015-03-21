@@ -22,6 +22,7 @@
         <activity
             android:name=".GoToActivity"
             android:label="@string/title_activity_go_to" >
+        </activity>
         <activity android:name=".AdoptaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
