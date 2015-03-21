@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="column_count">2</integer>
+
+    <dimen name="item_width">196dp</dimen>
+    <dimen name="item_height">248dp</dimen>
+
+</resources>
