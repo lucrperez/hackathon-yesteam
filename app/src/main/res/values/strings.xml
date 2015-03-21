@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Adoptame</string>
+    <string name="title_activity_lost_pet">LostPetActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="btn_txt_lostPet">Mascota Perdida</string>
+    <string name="btn_txt_foundPet">Mascota Encontrada</string>
+    <string name="title_activity_found_pet">FoundPetActivity</string>
+    <string name="title_activity_go_to">GoToActivity</string>
+    <string name="turn_GPS">Por favor, encienda el localizador GPS de su dispositivo. Pulse OK para continuar o Cancelar para volver al menú anterior.</string>
+    <string name="btn_txt_ok">Ok</string>
+    <string name="btn_txt_cancel">Cancelar</string>
 </resources>
