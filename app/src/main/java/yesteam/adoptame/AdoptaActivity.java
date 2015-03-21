@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -72,6 +74,24 @@ public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnI
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_adopta, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_lost_found) {
+            startActivity(new Intent(AdoptaActivity.this, LostFoundActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         new DownloadPets().execute();
     }
@@ -134,48 +154,48 @@ public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnI
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = array.getJSONObject(i);
 
-                        ItemPet pet = new ItemPet();
+                    ItemPet pet = new ItemPet();
 
-                    if(obj.has("id"))
+                    if (obj.has("id"))
                         pet.setId(obj.getInt("id"));
 
-                    if(obj.has("ficha"))
+                    if (obj.has("ficha"))
                         pet.setFicha(obj.getString("ficha"));
 
-                    if(obj.has("raza"))
+                    if (obj.has("raza"))
                         pet.setRaza(obj.getString("raza"));
 
-                    if(obj.has("fechaIngreso"))
+                    if (obj.has("fechaIngreso"))
                         pet.setIngreso(obj.getString("fechaIngreso"));
 
-                    if(obj.has("sexo"))
+                    if (obj.has("sexo"))
                         pet.setSexo(obj.getString("sexo"));
 
-                    if(obj.has("edad"))
+                    if (obj.has("edad"))
                         pet.setEdad(obj.getString("edad"));
 
-                    if(obj.has("tamagno"))
+                    if (obj.has("tamagno"))
                         pet.setTamano(obj.getString("tamagno"));
 
-                    if(obj.has("foto"))
+                    if (obj.has("foto"))
                         pet.setFoto("http:" + obj.getString("foto"));
 
-                    if(obj.has("nombre"))
+                    if (obj.has("nombre"))
                         pet.setNombre(obj.getString("nombre"));
 
-                    if(obj.has("especie"))
+                    if (obj.has("especie"))
                         pet.setEspecie(obj.getString("especie"));
 
-                    if(obj.has("color"))
+                    if (obj.has("color"))
                         pet.setColor(obj.getString("color"));
 
-                    if(obj.has("perdido"))
+                    if (obj.has("perdido"))
                         pet.setPerdido(obj.getBoolean("perdido"));
 
-                    if(obj.has("disponible"))
+                    if (obj.has("disponible"))
                         pet.setDisponible(Integer.valueOf(obj.getString("disponible")));
 
-                        items.add(pet);
+                    items.add(pet);
                 }
 
                 return items;
