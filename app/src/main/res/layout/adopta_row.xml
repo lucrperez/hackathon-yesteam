@@ -12,7 +12,7 @@
     <TextView
         android:id="@+id/txtName"
         android:textSize="20sp"
-        android:background="#AA000000"
+        android:background="@color/accent"
         android:maxLines="1"
         android:ellipsize="end"
         android:textColor="#FFF"
