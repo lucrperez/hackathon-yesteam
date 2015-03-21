@@ -19,7 +19,7 @@
             android:name=".LostPetActivity"
             android:label="@string/title_activity_lost_pet"></activity>
         <activity
-            android:name=".FoundPetActivity"
+            android:name=".SendPetActivity"
             android:label="@string/title_activity_found_pet"></activity>
         <activity
             android:name=".GoToActivity"
