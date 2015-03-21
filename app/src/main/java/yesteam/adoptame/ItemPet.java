@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class ItemPet implements Serializable {
 
-    private int id, disponible;
-    private String ficha, ingreso, raza, sexo, edad, tamano, foto, nombre, especie, color;
-    private boolean perdido;
+    private int id = 0, disponible = 3;
+    private String ficha = "", ingreso = "", raza = "", sexo = "", edad = "", tamano = "", foto = "", nombre = "", especie = "", color = "";
+    private boolean perdido = false;
 
     public int getId() {
         return id;

@@ -134,28 +134,48 @@ public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnI
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = array.getJSONObject(i);
 
-                    try {
                         ItemPet pet = new ItemPet();
 
+                    if(obj.has("id"))
                         pet.setId(obj.getInt("id"));
+
+                    if(obj.has("ficha"))
                         pet.setFicha(obj.getString("ficha"));
+
+                    if(obj.has("raza"))
                         pet.setRaza(obj.getString("raza"));
+
+                    if(obj.has("fechaIngreso"))
                         pet.setIngreso(obj.getString("fechaIngreso"));
+
+                    if(obj.has("sexo"))
                         pet.setSexo(obj.getString("sexo"));
+
+                    if(obj.has("edad"))
                         pet.setEdad(obj.getString("edad"));
+
+                    if(obj.has("tamagno"))
                         pet.setTamano(obj.getString("tamagno"));
+
+                    if(obj.has("foto"))
                         pet.setFoto("http:" + obj.getString("foto"));
+
+                    if(obj.has("nombre"))
                         pet.setNombre(obj.getString("nombre"));
+
+                    if(obj.has("especie"))
                         pet.setEspecie(obj.getString("especie"));
+
+                    if(obj.has("color"))
                         pet.setColor(obj.getString("color"));
+
+                    if(obj.has("perdido"))
                         pet.setPerdido(obj.getBoolean("perdido"));
+
+                    if(obj.has("disponible"))
                         pet.setDisponible(Integer.valueOf(obj.getString("disponible")));
 
                         items.add(pet);
-
-                    } catch (JSONException e) {
-
-                    }
                 }
 
                 return items;
@@ -172,7 +192,7 @@ public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnI
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "n");
+                sb.append(line + "\n");
             }
             return sb.toString();
         }
