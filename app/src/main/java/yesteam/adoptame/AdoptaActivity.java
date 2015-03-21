@@ -1,11 +1,15 @@
 package yesteam.adoptame;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,11 +23,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class AdoptaActivity extends ActionBarActivity {
+public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private AdoptaAdapter mAdapter;
+
+    private Spinner spnCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +37,47 @@ public class AdoptaActivity extends ActionBarActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        String[] categorias = new String[]{"En adopción", "Adoptados", "En observación"};
+        SpinnerCategoriaAdapter spinnerAdapter = new SpinnerCategoriaAdapter(this, categorias);
+
+        spnCategoria = (Spinner) toolbar.findViewById(R.id.spnCategoria);
+        spnCategoria.setAdapter(spinnerAdapter);
+        spnCategoria.setOnItemSelectedListener(this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
         mRecyclerView.setHasFixedSize(true);
 
-        mLayoutManager = new GridLayoutManager(this, getResources().getInteger(R.integer.column_count));
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
+                new RecyclerItemClickListener.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ItemPet pet = mAdapter.getItem(position);
+
+                        Intent intent = new Intent(AdoptaActivity.this, DetailPetActivity.class);
+                        intent.putExtra("pet", pet);
+                        startActivity(intent);
+                    }
+                }));
+
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, getResources().getInteger(R.integer.column_count));
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new AdoptaAdapter(AdoptaActivity.this, new ArrayList<ItemPet>());
         mRecyclerView.setAdapter(mAdapter);
+
+        new DownloadPets().execute();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         new DownloadPets().execute();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
     }
 
     private class DownloadPets extends AsyncTask<Void, Void, ArrayList<ItemPet>> {
@@ -59,7 +89,23 @@ public class AdoptaActivity extends ActionBarActivity {
             String response = "";
 
             try {
-                URL url = new URL("http://www.zaragoza.es/api/recurso/medio-ambiente/animal-en-adopcion.json");
+                String where = "?q=disponible==";
+
+                switch (spnCategoria.getSelectedItemPosition()) {
+                    case 0:
+                        where += "1";
+                        break;
+
+                    case 1:
+                        where += "3";
+                        break;
+
+                    case 2:
+                        where += "8";
+                        break;
+                }
+
+                URL url = new URL("http://www.zaragoza.es/api/recurso/medio-ambiente/animal-en-adopcion.json" + where);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000 /* milliseconds */);
                 conn.setConnectTimeout(15000 /* milliseconds */);

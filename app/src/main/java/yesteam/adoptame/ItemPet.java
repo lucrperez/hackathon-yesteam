@@ -1,6 +1,8 @@
 package yesteam.adoptame;
 
-public class ItemPet {
+import java.io.Serializable;
+
+public class ItemPet implements Serializable {
 
     private int id, disponible;
     private String ficha, ingreso, raza, sexo, edad, tamano, foto, nombre, especie, color;

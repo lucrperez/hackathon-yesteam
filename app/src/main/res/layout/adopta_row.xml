@@ -17,6 +17,7 @@
         android:ellipsize="end"
         android:textColor="#FFF"
         android:gravity="bottom"
+        android:alpha="0.85"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:paddingBottom="16dp"

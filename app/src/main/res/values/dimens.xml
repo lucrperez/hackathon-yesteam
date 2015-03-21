@@ -6,6 +6,8 @@
     <dimen name="item_width">196dp</dimen>
     <dimen name="item_height">248dp</dimen>
 
+    <dimen name="image_height_detail">200dp</dimen>
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
