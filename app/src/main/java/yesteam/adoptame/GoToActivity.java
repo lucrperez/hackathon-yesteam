@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -78,6 +79,12 @@ public class GoToActivity extends FragmentActivity {
         //lm.removeUpdates(mLocList);
         LatLng ll = new LatLng(loc.getLatitude(),loc.getLongitude());
         float zoom = (float) 10.0;
+        LatLng perrera = new LatLng(41.7575551,-0.797337);
+        map.addMarker(new MarkerOptions()
+            .position(perrera)
+            .draggable(false)
+            .visible(true)
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, zoom));
         new DownloadParadasTaxis().execute();
     }
@@ -197,7 +204,8 @@ public class GoToActivity extends FragmentActivity {
                 map.addMarker(new MarkerOptions()
                 .position(ll)
                 .draggable(false)
-                .visible(true));
+                .visible(true)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
             }
         }
     }
