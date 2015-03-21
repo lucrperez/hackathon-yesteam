@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/item_width"
+    android:layout_height="@dimen/item_height">
+
+    <ImageView
+        android:id="@+id/imgPet"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:textSize="20sp"
+        android:background="#AA000000"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="#FFF"
+        android:gravity="bottom"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:paddingBottom="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="16dp"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

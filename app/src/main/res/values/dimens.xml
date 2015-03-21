@@ -1,5 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <integer name="column_count">2</integer>
+
+    <dimen name="item_width">196dp</dimen>
+    <dimen name="item_height">248dp</dimen>
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
 </resources>
