@@ -11,6 +11,11 @@
         android:minHeight="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
 
+        <Spinner
+            android:id="@+id/spnCategoria"
+            style="@style/Widget.MyApp.HeaderBar.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView

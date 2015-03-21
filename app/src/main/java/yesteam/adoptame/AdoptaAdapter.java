@@ -1,7 +1,6 @@
 package yesteam.adoptame;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,10 +40,10 @@ public class AdoptaAdapter extends RecyclerView.Adapter<AdoptaAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder vh, int position) {
+    public void onBindViewHolder(final ViewHolder vh, int position) {
         ItemPet pet = items.get(position);
-        Picasso.with(context).load(pet.getFoto()).into(vh.imgPet);
         vh.txtName.setText(pet.getNombre());
+        Picasso.with(context).load(pet.getFoto()).into(vh.imgPet);
     }
 
     @Override
@@ -52,4 +51,7 @@ public class AdoptaAdapter extends RecyclerView.Adapter<AdoptaAdapter.ViewHolder
         return items.size();
     }
 
+    public ItemPet getItem(int pos) {
+        return items.get(pos);
+    }
 }

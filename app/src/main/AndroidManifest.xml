@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="yesteam.adoptame" >
+    package="yesteam.adoptame">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,22 +17,20 @@
         </activity>
         <activity
             android:name=".LostPetActivity"
-            android:label="@string/title_activity_lost_pet" >
-        </activity>
+            android:label="@string/title_activity_lost_pet"></activity>
         <activity
             android:name=".FoundPetActivity"
-            android:label="@string/title_activity_found_pet" >
-        </activity>
+            android:label="@string/title_activity_found_pet"></activity>
         <activity
             android:name=".GoToActivity"
-            android:label="@string/title_activity_go_to" >
+            android:label="@string/title_activity_go_to"></activity>
+        <activity android:name=".AdoptaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdoptaActivity">
-        </activity>
+        <activity android:name=".DetailPetActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

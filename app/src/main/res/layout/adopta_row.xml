@@ -12,11 +12,12 @@
     <TextView
         android:id="@+id/txtName"
         android:textSize="20sp"
-        android:background="#AA000000"
+        android:background="@color/accent"
         android:maxLines="1"
         android:ellipsize="end"
         android:textColor="#FFF"
         android:gravity="bottom"
+        android:alpha="0.85"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:paddingBottom="16dp"
