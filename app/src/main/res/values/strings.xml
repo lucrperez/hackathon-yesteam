@@ -13,7 +13,7 @@
     <string name="turn_GPS">Por favor, encienda el localizador GPS de su dispositivo. Pulse OK para continuar o Cancelar para volver al menú anterior.</string>
     <string name="btn_txt_ok">Ok</string>
     <string name="btn_txt_cancel">Cancelar</string>
-    <string name="btn_txt_details_taxiStops">Paradas de taxi</string>
+    <string name="btn_txt_details_taxiStops">Voy a por él!</string>
     <string name="btn_txt_details_doghouse">Dirección Centro de Animales</string>
     <string name="title_activity_doghouse">Dirección Centro de Animales</string>
     <string name="action_settings">Settings</string>
