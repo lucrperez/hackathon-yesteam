@@ -22,6 +22,8 @@
         <activity
             android:name=".FoundPetActivity"
             android:label="@string/title_activity_found_pet" />
+            android:name=".SendPetActivity"
+            android:label="@string/title_activity_found_pet"></activity>
         <activity
             android:name=".GoToActivity"
             android:label="@string/title_activity_go_to" />

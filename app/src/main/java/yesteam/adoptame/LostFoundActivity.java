@@ -1,18 +1,34 @@
 package yesteam.adoptame;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 
-public class LostFoundActivity extends FragmentActivity {
+public class LostFoundActivity extends ActionBarActivity {
 
     private GoogleMap map;
 
@@ -21,11 +37,14 @@ public class LostFoundActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_found);
 
-        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.lostPet_map)).getMap();
-        float zoom = (float) 10.0;
-        LatLng ll = new LatLng(40.41,-3.73);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(ll,zoom));
+        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.lostPet_map)).getMap();
+        float zoom = (float) 12.0;
+        LatLng ll = new LatLng(41.6531717, -0.9037133);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, zoom));
 
         Button btn_lost = (Button) findViewById(R.id.btn_lostPet);
         Button btn_found = (Button) findViewById(R.id.btn_foundPet);
@@ -35,43 +54,125 @@ public class LostFoundActivity extends FragmentActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), LostPetActivity.class);
+                intent.setClass(getApplicationContext(), SendPetActivity.class);
+                intent.putExtra("type", 0);
                 startActivity(intent);
             }
         });
-        
+
         btn_found.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), FoundPetActivity.class);
+                intent.setClass(getApplicationContext(), SendPetActivity.class);
+                intent.putExtra("type", 1);
                 startActivity(intent);
 
             }
         });
     }
 
-    /*
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_lost_pet, menu);
-        return true;
+    protected void onResume() {
+        super.onResume();
+
+        new DownloadPets().execute();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private class DownloadPets extends AsyncTask<Void, Void, ArrayList<GeoPet>> {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        @Override
+        protected ArrayList<GeoPet> doInBackground(Void... params) {
+
+            InputStream is = null;
+            String response = "";
+
+            try {
+                URL url = new URL("http://base.kix2902.es/zgzappstore/query.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(10000 /* milliseconds */);
+                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setRequestMethod("GET");
+                conn.setDoInput(true);
+
+                conn.connect();
+                is = conn.getInputStream();
+
+                response = readIt(is);
+
+                is.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                JSONArray array = new JSONArray(response);
+
+                ArrayList<GeoPet> items = new ArrayList<GeoPet>();
+
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject obj = array.getJSONObject(i);
+
+                    GeoPet pet = new GeoPet();
+
+                    if (obj.has("id"))
+                        pet.setId(Integer.valueOf(obj.getString("id")));
+
+                    if (obj.has("text"))
+                        pet.setText(obj.getString("text"));
+
+                    if (obj.has("latitude"))
+                        pet.setLatitude(Float.valueOf(obj.getString("latitude")));
+
+                    if (obj.has("longitude"))
+                        pet.setLongitude(Float.valueOf(obj.getString("longitude")));
+
+                    if (obj.has("type"))
+                        pet.setType(Integer.valueOf(obj.getString("type")));
+
+                    items.add(pet);
+                }
+
+                return items;
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
         }
 
-        return super.onOptionsItemSelected(item);
-    }*/
+        public String readIt(InputStream stream) throws IOException {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream, "utf-8"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            return sb.toString();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<GeoPet> itemPets) {
+            super.onPostExecute(itemPets);
+
+            for (GeoPet pet : itemPets) {
+                MarkerOptions marker = new MarkerOptions()
+                        .position(new LatLng(pet.getLatitude(), pet.getLongitude()))
+                        .draggable(false)
+                        .title(pet.getText())
+                        .visible(true);
+
+                if (pet.getType() == 0) {
+                    marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                } else {
+                    marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                }
+
+                map.addMarker(marker);
+            }
+        }
+    }
 }
