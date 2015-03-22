@@ -127,14 +127,14 @@
                         android:id="@+id/btn_details_taxiStops"
                         android:text="@string/btn_txt_details_taxiStops"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="0.5"/>
                     
                     <Button
                         android:id="@+id/btn_details_doghouse"
                         android:text="@string/btn_txt_details_doghouse"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="0.5"/>
 
                 </LinearLayout>

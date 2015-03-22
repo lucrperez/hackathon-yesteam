@@ -9,7 +9,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,7 +33,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 
-public class GoToActivity extends FragmentActivity {
+public class GoToActivity extends ActionBarActivity {
 
     private GoogleMap map;
 
@@ -45,7 +45,7 @@ public class GoToActivity extends FragmentActivity {
         setContentView(R.layout.activity_go_to);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.goto_map)).getMap();
 
@@ -77,11 +77,17 @@ public class GoToActivity extends FragmentActivity {
 
         //lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocList);
         //Location l = mLocList.getLocation();
-        Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         map.setMyLocationEnabled(true);
         //loc.getAccuracy();
         //lm.removeUpdates(mLocList);
-        LatLng ll = new LatLng(loc.getLatitude(),loc.getLongitude());
+        Location loc = map.getMyLocation();
+        LatLng ll = null;
+        if (loc != null) {
+            ll = new LatLng(loc.getLatitude(), loc.getLongitude());
+        } else {
+            ll = new LatLng(41.6532341,-0.8870108);
+        }
         float zoom = (float) 10.0;
         LatLng perrera = new LatLng(41.7575551,-0.797337);
         map.addMarker(new MarkerOptions()
