@@ -26,8 +26,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 
@@ -182,19 +184,24 @@ public class LostFoundActivity extends ActionBarActivity {
             super.onPostExecute(itemPets);
 
             for (GeoPet pet : itemPets) {
-                MarkerOptions marker = new MarkerOptions()
-                        .position(new LatLng(pet.getLatitude(), pet.getLongitude()))
-                        .draggable(false)
-                        .title(pet.getText())
-                        .visible(true);
+                try {
+                    MarkerOptions marker = new MarkerOptions()
+                            .position(new LatLng(pet.getLatitude(), pet.getLongitude()))
+                            .draggable(false)
+                            .title(URLDecoder.decode(pet.getText(), "UTF-8"))
+                            .visible(true);
 
-                if (pet.getType() == 0) {
-                    marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                } else {
-                    marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    if (pet.getType() == 0) {
+                        marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    } else {
+                        marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    }
+
+                    map.addMarker(marker);
+
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
-
-                map.addMarker(marker);
             }
         }
     }
