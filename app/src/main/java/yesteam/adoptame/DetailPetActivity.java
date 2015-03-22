@@ -15,6 +15,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 public class DetailPetActivity extends ActionBarActivity {
 
     private ShareActionProvider mShareActionProvider;
@@ -50,7 +55,7 @@ public class DetailPetActivity extends ActionBarActivity {
         txtEdad.setText("Edad: " + pet.getEdad());
         txtTamano.setText("Tamaño: " + pet.getTamano());
         txtColor.setText("Color: " + pet.getColor());
-        txtIngreso.setText("Fecha de ingreso: " + pet.getIngreso());
+        txtIngreso.setText("Fecha de ingreso: " + pet.getIngreso().substring(0,10));
 
         switch (pet.getDisponible()) {
             case 1:
@@ -125,7 +130,17 @@ public class DetailPetActivity extends ActionBarActivity {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, pet.getNombre() + " busca un hogar en Zaragoza, adóptalo ya! #AdoptaPetZgz " + pet.getFoto());
+        URL urlFoto = null;
+        try {
+            URL url = new URL(pet.getFoto());
+            URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+            urlFoto = uri.toURL();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        intent.putExtra(Intent.EXTRA_TEXT, pet.getNombre() + " busca un hogar en Zaragoza, adóptalo ya! #AdoptaPetZgz " + urlFoto.toString());
         return intent;
     }
 }
