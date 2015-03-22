@@ -1,5 +1,7 @@
 package yesteam.adoptame;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -71,6 +73,17 @@ public class LostFoundActivity extends ActionBarActivity {
 
             }
         });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.lostFound_explication);
+        builder.setPositiveButton(R.string.btn_txt_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
     }
 
     @Override
