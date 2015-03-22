@@ -77,11 +77,17 @@ public class GoToActivity extends ActionBarActivity {
 
         //lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocList);
         //Location l = mLocList.getLocation();
-        Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         map.setMyLocationEnabled(true);
         //loc.getAccuracy();
         //lm.removeUpdates(mLocList);
-        LatLng ll = new LatLng(loc.getLatitude(), loc.getLongitude());
+        Location loc = map.getMyLocation();
+        LatLng ll = null;
+        if (loc != null) {
+            ll = new LatLng(loc.getLatitude(), loc.getLongitude());
+        } else {
+            ll = new LatLng(41.6532341,-0.8870108);
+        }
         float zoom = (float) 10.0;
         LatLng perrera = new LatLng(41.7575551, -0.797337);
         map.addMarker(new MarkerOptions()

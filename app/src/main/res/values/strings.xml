@@ -8,14 +8,14 @@
     <string name="btn_txt_lostPet">Mascota Perdida</string>
     <string name="btn_txt_foundPet">Mascota Encontrada</string>
     <string name="title_activity_found_pet">FoundPetActivity</string>
-    <string name="title_activity_lost_found">LostFoundActivity</string>
-    <string name="title_activity_go_to">GoToActivity</string>
+    <string name="title_activity_lost_found">Mapa Perdidos y Encontrados</string>
+    <string name="title_activity_go_to">Paradas de taxi</string>
     <string name="turn_GPS">Por favor, encienda el localizador GPS de su dispositivo. Pulse OK para continuar o Cancelar para volver al menú anterior.</string>
     <string name="btn_txt_ok">Ok</string>
     <string name="btn_txt_cancel">Cancelar</string>
     <string name="btn_txt_details_taxiStops">Paradas de taxi</string>
-    <string name="btn_txt_details_doghouse">Dirección perrera</string>
-    <string name="title_activity_doghouse">DoghouseActivity</string>
+    <string name="btn_txt_details_doghouse">Dirección Centro de Animales</string>
+    <string name="title_activity_doghouse">Dirección Centro de Animales</string>
     <string name="action_settings">Settings</string>
     <string name="lostFound_explication">- Los puntos verdes indican mascotas que han sido encontradas.\n
     - Los puntos rojos indican mascotas que han sido perdidas.\n
