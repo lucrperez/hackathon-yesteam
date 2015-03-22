@@ -1,7 +1,7 @@
 package yesteam.adoptame;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -12,7 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class DoghouseActivity extends FragmentActivity {
+public class DoghouseActivity extends ActionBarActivity {
 
     GoogleMap map;
 
@@ -22,11 +22,11 @@ public class DoghouseActivity extends FragmentActivity {
         setContentView(R.layout.activity_doghouse);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.doghouse_map)).getMap();
         float zoom = (float) 12.0;
-        LatLng perrera = new LatLng(41.7575551,-0.797337);
+        LatLng perrera = new LatLng(41.7575551, -0.797337);
         map.addMarker(new MarkerOptions()
                 .position(perrera)
                 .draggable(false)

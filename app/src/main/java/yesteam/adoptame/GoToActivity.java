@@ -9,7 +9,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,7 +33,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 
-public class GoToActivity extends FragmentActivity {
+public class GoToActivity extends ActionBarActivity {
 
     private GoogleMap map;
 
@@ -45,7 +45,7 @@ public class GoToActivity extends FragmentActivity {
         setContentView(R.layout.activity_go_to);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.goto_map)).getMap();
 
@@ -81,14 +81,14 @@ public class GoToActivity extends FragmentActivity {
         map.setMyLocationEnabled(true);
         //loc.getAccuracy();
         //lm.removeUpdates(mLocList);
-        LatLng ll = new LatLng(loc.getLatitude(),loc.getLongitude());
+        LatLng ll = new LatLng(loc.getLatitude(), loc.getLongitude());
         float zoom = (float) 10.0;
-        LatLng perrera = new LatLng(41.7575551,-0.797337);
+        LatLng perrera = new LatLng(41.7575551, -0.797337);
         map.addMarker(new MarkerOptions()
-            .position(perrera)
-            .draggable(false)
-            .visible(true)
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                .position(perrera)
+                .draggable(false)
+                .visible(true)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, zoom));
         new DownloadParadasTaxis().execute();
     }
@@ -131,7 +131,7 @@ public class GoToActivity extends FragmentActivity {
         @Override
         protected ArrayList<LatLng> doInBackground(Void... params) {
 
-             String response = null;
+            String response = null;
 
             try {
                 String charset = "UTF-8";
@@ -173,7 +173,7 @@ public class GoToActivity extends FragmentActivity {
                     JSONObject obj = array.getJSONObject(i);
 
                     try {
-                        items.add(new LatLng(obj.getDouble("lat"),obj.getDouble("lng")));
+                        items.add(new LatLng(obj.getDouble("lat"), obj.getDouble("lng")));
 
                     } catch (JSONException e) {
 
@@ -203,13 +203,12 @@ public class GoToActivity extends FragmentActivity {
         protected void onPostExecute(ArrayList<LatLng> Listll) {
             super.onPostExecute(Listll);
 
-            for (LatLng ll : Listll)
-            {
+            for (LatLng ll : Listll) {
                 map.addMarker(new MarkerOptions()
-                .position(ll)
-                .draggable(false)
-                .visible(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                        .position(ll)
+                        .draggable(false)
+                        .visible(true)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
             }
         }
     }

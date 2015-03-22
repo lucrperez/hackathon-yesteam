@@ -39,12 +39,12 @@ public class SendPetActivity extends ActionBarActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_pet);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         editText = (EditText) findViewById(R.id.editText);
         btnSend = (Button) findViewById(R.id.btnSend);
         btnSend.setOnClickListener(this);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         type = getIntent().getIntExtra("type", 0);
 
