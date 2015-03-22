@@ -43,7 +43,8 @@ public class AdoptaAdapter extends RecyclerView.Adapter<AdoptaAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder vh, int position) {
         ItemPet pet = items.get(position);
         vh.txtName.setText(pet.getNombre());
-        Picasso.with(context).load(pet.getFoto()).into(vh.imgPet);
+        Picasso.with(context).cancelRequest(vh.imgPet);
+        Picasso.with(context).load(pet.getFoto()).placeholder(R.drawable.no_photo).into(vh.imgPet);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class DetailPetActivity extends ActionBarActivity {
         pet = (ItemPet) getIntent().getSerializableExtra("pet");
 
         txtName.setText(pet.getNombre());
-        Picasso.with(this).load(pet.getFoto()).into(imgPet);
+        Picasso.with(this).load(pet.getFoto()).placeholder(R.drawable.no_photo).into(imgPet);
         txtEspecie.setText("Especie: " + pet.getEspecie());
         txtRaza.setText("Raza: " + pet.getRaza());
         txtSexo.setText("Sexo: " + pet.getSexo());
