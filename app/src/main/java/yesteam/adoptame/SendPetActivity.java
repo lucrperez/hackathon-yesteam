@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 
 public class SendPetActivity extends ActionBarActivity implements View.OnClickListener, GoogleMap.OnMapClickListener {
@@ -100,7 +101,7 @@ public class SendPetActivity extends ActionBarActivity implements View.OnClickLi
             InputStream is = null;
 
             try {
-                String paramsUrl = "?text=" + editText.getText().toString() + "&latitude=" + latitude + "&longitude=" + longitude + "&type=" + type;
+                String paramsUrl = "?text=" + URLEncoder.encode(editText.getText().toString(), "UTF-8") + "&latitude=" + latitude + "&longitude=" + longitude + "&type=" + type;
 
                 URL url = new URL("http://base.kix2902.es/zgzappstore/upload.php" + paramsUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
