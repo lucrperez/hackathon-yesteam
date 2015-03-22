@@ -55,7 +55,7 @@ public class DetailPetActivity extends ActionBarActivity {
         txtEdad.setText("Edad: " + pet.getEdad());
         txtTamano.setText("Tamaño: " + pet.getTamano());
         txtColor.setText("Color: " + pet.getColor());
-        txtIngreso.setText("Fecha de ingreso: " + pet.getIngreso().substring(0,10));
+        txtIngreso.setText("Fecha de ingreso: " + pet.getIngreso().substring(0, 10));
 
         switch (pet.getDisponible()) {
             case 1:
@@ -130,17 +130,16 @@ public class DetailPetActivity extends ActionBarActivity {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        URL urlFoto = null;
+        URL urlShare = null;
         try {
-            URL url = new URL(pet.getFoto());
+            URL url = new URL("http://www.zaragoza.es/ciudad/proteccionanimal/detalle_Mascota?id=" + pet.getId());
             URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
-            urlFoto = uri.toURL();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+            urlShare = uri.toURL();
+
+        } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
         }
-        intent.putExtra(Intent.EXTRA_TEXT, pet.getNombre() + " busca un hogar en Zaragoza, adóptalo ya! #AdoptaPetZgz " + urlFoto.toString());
+        intent.putExtra(Intent.EXTRA_TEXT, pet.getNombre() + " busca un hogar en Zaragoza, adóptalo ya! #AdoptaPetZgz " + urlShare.toString());
         return intent;
     }
 }
