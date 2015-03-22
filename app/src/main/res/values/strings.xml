@@ -3,7 +3,7 @@
     <string name="title_activity_lost_pet">LostPetActivity</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_lost_found">Lost and found</string>
+    <string name="action_lost_found">Mapa Perdidos y Encontrados</string>
 
     <string name="btn_txt_lostPet">Mascota Perdida</string>
     <string name="btn_txt_foundPet">Mascota Encontrada</string>
