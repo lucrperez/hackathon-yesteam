@@ -1,8 +1,11 @@
 package yesteam.adoptame;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,5 +64,27 @@ public class DetailPetActivity extends ActionBarActivity {
         } else {
             txtPerdido.setText("Perdido: No");
         }
+
+        Button btn_taxiStops = (Button) findViewById(R.id.btn_details_taxiStops);
+        Button btn_doghouse = (Button) findViewById(R.id.btn_details_doghouse);
+
+        btn_taxiStops.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), GoToActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_doghouse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), DoghouseActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

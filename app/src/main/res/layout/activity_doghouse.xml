@@ -1,9 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="yesteam.adoptame.GoToActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="yesteam.adoptame.DoghouseActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -13,7 +12,7 @@
         android:background="?attr/colorPrimary" />
 
     <fragment
-        android:id="@+id/goto_map"
+        android:id="@+id/doghouse_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
