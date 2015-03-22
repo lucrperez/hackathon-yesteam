@@ -50,7 +50,7 @@ public class DetailPetActivity extends ActionBarActivity {
         txtEdad.setText("Edad: " + pet.getEdad());
         txtTamano.setText("Tamaño: " + pet.getTamano());
         txtColor.setText("Color: " + pet.getColor());
-        txtIngreso.setText("Fecha de ingreso: " + pet.getIngreso());
+        txtIngreso.setText("Fecha de ingreso: " + pet.getIngreso().substring(0,10));
 
         switch (pet.getDisponible()) {
             case 1:
