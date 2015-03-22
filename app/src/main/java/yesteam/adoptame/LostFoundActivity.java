@@ -188,7 +188,7 @@ public class LostFoundActivity extends ActionBarActivity {
                     MarkerOptions marker = new MarkerOptions()
                             .position(new LatLng(pet.getLatitude(), pet.getLongitude()))
                             .draggable(false)
-                            .title(URLDecoder.decode(pet.getText(), "UTF-8"))
+                            .title(URLDecoder.decode(pet.getText(), "utf-8"))
                             .visible(true);
 
                     if (pet.getType() == 0) {

@@ -117,7 +117,7 @@ public class SendPetActivity extends ActionBarActivity implements View.OnClickLi
             InputStream is = null;
 
             try {
-                String paramsUrl = "?text=" + URLEncoder.encode(editText.getText().toString(), "UTF-8") + "&latitude=" + latitude + "&longitude=" + longitude + "&type=" + type;
+                String paramsUrl = "?text=" + URLEncoder.encode(editText.getText().toString(), "utf-8") + "&latitude=" + latitude + "&longitude=" + longitude + "&type=" + type;
 
                 URL url = new URL("http://base.kix2902.es/zgzappstore/upload.php" + paramsUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
