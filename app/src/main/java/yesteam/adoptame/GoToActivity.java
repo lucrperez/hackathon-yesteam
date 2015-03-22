@@ -89,12 +89,12 @@ public class GoToActivity extends ActionBarActivity {
             ll = new LatLng(41.6532341,-0.8870108);
         }
         float zoom = (float) 10.0;
-        LatLng perrera = new LatLng(41.7575551,-0.797337);
+        LatLng perrera = new LatLng(41.7575551, -0.797337);
         map.addMarker(new MarkerOptions()
-            .position(perrera)
-            .draggable(false)
-            .visible(true)
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                .position(perrera)
+                .draggable(false)
+                .visible(true)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, zoom));
         new DownloadParadasTaxis().execute();
     }
@@ -137,7 +137,7 @@ public class GoToActivity extends ActionBarActivity {
         @Override
         protected ArrayList<LatLng> doInBackground(Void... params) {
 
-             String response = null;
+            String response = null;
 
             try {
                 String charset = "UTF-8";
@@ -179,7 +179,7 @@ public class GoToActivity extends ActionBarActivity {
                     JSONObject obj = array.getJSONObject(i);
 
                     try {
-                        items.add(new LatLng(obj.getDouble("lat"),obj.getDouble("lng")));
+                        items.add(new LatLng(obj.getDouble("lat"), obj.getDouble("lng")));
 
                     } catch (JSONException e) {
 
@@ -209,13 +209,12 @@ public class GoToActivity extends ActionBarActivity {
         protected void onPostExecute(ArrayList<LatLng> Listll) {
             super.onPostExecute(Listll);
 
-            for (LatLng ll : Listll)
-            {
+            for (LatLng ll : Listll) {
                 map.addMarker(new MarkerOptions()
-                .position(ll)
-                .draggable(false)
-                .visible(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                        .position(ll)
+                        .draggable(false)
+                        .visible(true)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
             }
         }
     }

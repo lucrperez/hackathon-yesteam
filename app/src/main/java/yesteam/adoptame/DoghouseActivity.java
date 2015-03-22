@@ -26,7 +26,7 @@ public class DoghouseActivity extends ActionBarActivity {
 
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.doghouse_map)).getMap();
         float zoom = (float) 12.0;
-        LatLng perrera = new LatLng(41.7575551,-0.797337);
+        LatLng perrera = new LatLng(41.7575551, -0.797337);
         map.addMarker(new MarkerOptions()
                 .position(perrera)
                 .draggable(false)

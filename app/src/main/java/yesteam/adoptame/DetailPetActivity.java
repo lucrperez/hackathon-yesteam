@@ -2,8 +2,12 @@ package yesteam.adoptame;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,6 +16,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 public class DetailPetActivity extends ActionBarActivity {
+
+    private ShareActionProvider mShareActionProvider;
+    private ItemPet pet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +40,10 @@ public class DetailPetActivity extends ActionBarActivity {
         TextView txtDisponible = (TextView) findViewById(R.id.txtDisponible);
         TextView txtPerdido = (TextView) findViewById(R.id.txtPerdido);
 
-        ItemPet pet = (ItemPet) getIntent().getSerializableExtra("pet");
+        pet = (ItemPet) getIntent().getSerializableExtra("pet");
 
         txtName.setText(pet.getNombre());
-        Picasso.with(this).load(pet.getFoto()).into(imgPet);
+        Picasso.with(this).load(pet.getFoto()).placeholder(R.drawable.no_photo).into(imgPet);
         txtEspecie.setText("Especie: " + pet.getEspecie());
         txtRaza.setText("Raza: " + pet.getRaza());
         txtSexo.setText("Sexo: " + pet.getSexo());
@@ -86,5 +93,39 @@ public class DetailPetActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+
+
+        if (pet.getEspecie().equalsIgnoreCase("canina")) {
+            txtName.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.icono_perro), null);
+
+        } else if (pet.getEspecie().equalsIgnoreCase("felina")) {
+            txtName.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.icono_gato), null);
+
+        } else if (pet.getEspecie().equalsIgnoreCase("ave")) {
+            txtName.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.icono_pajaro), null);
+
+        } else {
+            txtName.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.icono_otros), null);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_detail_pet, menu);
+
+        // Set up ShareActionProvider's default share intent
+        MenuItem shareItem = menu.findItem(R.id.menu_share);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        mShareActionProvider.setShareIntent(getShareIntent());
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private Intent getShareIntent() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, pet.getNombre() + " busca un hogar en Zaragoza, adóptalo ya! #AdoptaPetZgz " + pet.getFoto());
+        return intent;
     }
 }
