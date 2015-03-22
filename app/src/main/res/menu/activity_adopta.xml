@@ -1,9 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_filter"
+        android:title="@string/action_filter"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_lost_found"
         android:title="@string/action_lost_found"
-        android:orderInCategory="100"
         android:icon="@android:drawable/ic_menu_mapmode"
         app:showAsAction="never" />
+
 </menu>

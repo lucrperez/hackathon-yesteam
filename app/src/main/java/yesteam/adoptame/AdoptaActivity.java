@@ -11,6 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import org.json.JSONArray;
@@ -25,12 +28,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private AdoptaAdapter mAdapter;
 
-    private Spinner spnCategoria;
+    private Spinner spnCategoria, spnEspecie, spnTamano, spnEdad;
+    private LinearLayout layFilter;
+    private Button btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,27 @@ public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnI
         mAdapter = new AdoptaAdapter(AdoptaActivity.this, new ArrayList<ItemPet>());
         mRecyclerView.setAdapter(mAdapter);
 
+
+        layFilter = (LinearLayout) findViewById(R.id.layFilter);
+        btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(this);
+
+        spnEspecie = (Spinner) findViewById(R.id.spnEspecie);
+        ArrayAdapter<CharSequence> adapterEspecie = ArrayAdapter.createFromResource(this, R.array.array_especie, android.R.layout.simple_spinner_item);
+        adapterEspecie.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnEspecie.setAdapter(adapterEspecie);
+
+        spnTamano = (Spinner) findViewById(R.id.spnTamano);
+        ArrayAdapter<CharSequence> adapterTamano = ArrayAdapter.createFromResource(this, R.array.array_tamano, android.R.layout.simple_spinner_item);
+        adapterTamano.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnTamano.setAdapter(adapterTamano);
+
+        spnEdad = (Spinner) findViewById(R.id.spnEdad);
+        ArrayAdapter<CharSequence> adapterEdad = ArrayAdapter.createFromResource(this, R.array.array_edad, android.R.layout.simple_spinner_item);
+        adapterEdad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnEdad.setAdapter(adapterEdad);
+
+
         new DownloadPets().execute();
     }
 
@@ -83,9 +109,18 @@ public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnI
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_lost_found) {
-            startActivity(new Intent(AdoptaActivity.this, LostFoundActivity.class));
-            return true;
+        switch (id) {
+            case R.id.action_lost_found:
+                startActivity(new Intent(AdoptaActivity.this, LostFoundActivity.class));
+                return true;
+
+            case R.id.action_filter:
+                if (layFilter.getVisibility() == View.GONE) {
+                    layFilter.setVisibility(View.VISIBLE);
+                } else {
+                    layFilter.setVisibility(View.GONE);
+                }
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -93,11 +128,25 @@ public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        new DownloadPets().execute();
+        switch (parent.getId()) {
+            case R.id.spnCategoria:
+                new DownloadPets().execute();
+                break;
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnSearch:
+                new DownloadPets().execute();
+                layFilter.setVisibility(View.GONE);
+                break;
+        }
     }
 
     private class DownloadPets extends AsyncTask<Void, Void, ArrayList<ItemPet>> {
@@ -122,6 +171,60 @@ public class AdoptaActivity extends ActionBarActivity implements AdapterView.OnI
 
                     case 2:
                         where += "8";
+                        break;
+                }
+
+                switch (spnEspecie.getSelectedItemPosition()) {
+                    case 1:
+                        where += ";especie==Canina";
+                        break;
+
+                    case 2:
+                        where += ";especie==Felina";
+                        break;
+
+                    case 3:
+                        where += ";especie==Ave";
+                        break;
+
+                    case 4:
+                        where += ";especie==Otros";
+                        break;
+                }
+
+                switch (spnEdad.getSelectedItemPosition()) {
+                    case 1:
+                        where += ";edad==Cachorro%20(0-3%20meses)";
+                        break;
+
+                    case 2:
+                        where += ";edad==joven%20(3-12%20meses)";
+                        break;
+
+                    case 3:
+                        where += ";edad==Adulto%20(1-5%20a%F1os)";
+                        break;
+
+                    case 4:
+                        where += ";edad==Mayor%20(%3E%205%20a%F1os)";
+                        break;
+                }
+
+                switch (spnTamano.getSelectedItemPosition()) {
+                    case 1:
+                        where += ";tamagno==Peque%F1o%20(%3C%2010%20Kg)";
+                        break;
+
+                    case 2:
+                        where += ";tamagno==Mediano%20(11-25%20kg)";
+                        break;
+
+                    case 3:
+                        where += ";tamagno==Grande%20(26-44%20kg)";
+                        break;
+
+                    case 4:
+                        where += ";tamagno==Gigante%20(>%2045%20Kg)";
                         break;
                 }
 

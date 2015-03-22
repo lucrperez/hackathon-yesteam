@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_especie">
+        <item>Todas</item>
+        <item>Canina</item>
+        <item>Felina</item>
+        <item>Ave</item>
+        <item>Otros</item>
+    </string-array>
+    <string-array name="array_tamano">
+        <item>Todos</item>
+        <item>Pequeño (\u003c10 Kg))</item>
+        <item>Mediano (11–25 Kg)</item>
+        <item>Grande (26–44 Kg)</item>
+        <item>Gigante (\u003e45 Kg)</item>
+    </string-array>
+    <string-array name="array_edad">
+        <item>Todas</item>
+        <item>Cachorro (\u003c3 meses)</item>
+        <item>Joven (3–12 meses)</item>
+        <item>Aduto (1–5 años)</item>
+        <item>Mayor (\u003e5 años)</item>
+    </string-array>
+</resources>
