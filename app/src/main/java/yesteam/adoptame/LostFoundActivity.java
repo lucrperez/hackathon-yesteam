@@ -3,6 +3,7 @@ package yesteam.adoptame;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -74,16 +75,25 @@ public class LostFoundActivity extends ActionBarActivity {
             }
         });
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.lostFound_explication);
-        builder.setPositiveButton(R.string.btn_txt_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        SharedPreferences settings = getPreferences(0);
+        int times = settings.getInt("numLostFound", 0);
 
-            }
-        });
-        builder.create();
-        builder.show();
+        if (times == 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.lostFound_explication);
+            builder.setPositiveButton(R.string.btn_txt_ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.create();
+            builder.show();
+
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("numLostFound", times + 1);
+            editor.commit();
+        }
     }
 
     @Override

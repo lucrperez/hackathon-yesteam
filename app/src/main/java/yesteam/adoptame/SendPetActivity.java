@@ -2,6 +2,7 @@ package yesteam.adoptame;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -62,20 +63,35 @@ public class SendPetActivity extends ActionBarActivity implements View.OnClickLi
 
         map.setOnMapClickListener(this);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (type == 0) {
-            builder.setMessage(R.string.sendPet_lost_explication);
-        } else {
-            builder.setMessage(R.string.sendPet_found_explication);
-        }
-        builder.setPositiveButton(R.string.btn_txt_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
+        SharedPreferences settings = getPreferences(0);
+        int times = 0;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            if (type == 0) {
+                builder.setMessage(R.string.sendPet_lost_explication);
+                times = settings.getInt("numLost", 0);
+            } else {
+                builder.setMessage(R.string.sendPet_found_explication);
+                times = settings.getInt("numFound", 0);
             }
-        });
-        builder.create();
-        builder.show();
+            builder.setPositiveButton(R.string.btn_txt_ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+
+        if (times == 0) {
+            builder.create();
+            builder.show();
+
+            SharedPreferences.Editor editor = settings.edit();
+            if (type == 0) {
+                editor.putInt("numLost", times + 1);
+            } else {
+                editor.putInt("numFound", times + 1);
+            }
+            editor.commit();
+        }
     }
 
     @Override
