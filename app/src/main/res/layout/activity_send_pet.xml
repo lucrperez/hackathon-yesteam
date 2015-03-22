@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:textColor="@android:color/black"
             android:layout_height="wrap_content"
-            android:text="Descripcion:" />
+            android:text="@string/tag_description" />
 
         <EditText
             android:layout_width="match_parent"
@@ -46,6 +46,6 @@
         android:id="@+id/btnSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enviar datos" />
+        android:text="@string/btn_txt_SendDataPet" />
 
 </LinearLayout>

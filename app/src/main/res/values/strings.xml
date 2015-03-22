@@ -26,5 +26,7 @@
     <string name="sendPet_found_explication">- Pulsa sobre el lugar aproximado dónde has encontrado una mascota\n
     - Añade una breve descripción.\n
     - Envía y comparte la información.</string>
+    <string name="tag_description">Descripción: </string>
+    <string name="btn_txt_SendDataPet">Enviar datos</string>
 
 </resources>
